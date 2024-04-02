@@ -1,0 +1,2 @@
+/* CSS내에서 다른 CSS파일을 가져와 연결하는 방식 */
+@import url("./style.css") /* url함수(funsion)*/

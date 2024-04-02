@@ -1,0 +1,90 @@
+@import url("./style2.css");
+
+span.orange {
+    color: red;
+}
+
+ul > .green {
+    color: green;
+}
+
+ul .red {
+    color: red;
+}
+
+/* .yellow + li {
+    color: yellow;
+} */
+
+.yellow ~ li {
+    color: yellow;
+}
+
+
+
+
+
+/* 마우스 포인터 갖다데면 색깔 바뀜 */
+.purple:hover {
+    color: purple;
+}
+
+/* 마우스 누르고 있으면 색깔 바뀜 */
+.purple:active {
+    color: red;
+}
+
+/* 활성화시 색깔 바뀜 */
+input:focus {
+    background-color: aqua;
+}
+
+
+
+
+.car span:first-child {
+    color: orange;
+}
+
+.car h3:last-child {
+    color: gray;
+}
+
+.car *:nth-child(2) {
+    color: red;
+}
+
+.car *:not(span) {
+    font-size: x-large;
+}
+
+.box::before {
+    content: "★";
+}
+
+.box::after {
+    content: "뒤!!";
+}
+
+[disabled] {
+    color: red;
+}
+
+[type="password"] {
+    color: chartreuse;
+}
+
+[value="HI"] {
+    color: blue;
+}
+
+.animal {
+    color: red;
+}
+
+div {color: red !important;}
+#color_yellow {color: yellow;}
+.color_green {color: green;}
+div {color:blue;}
+* {color: brown;}
+body {color: violet;}
