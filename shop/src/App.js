@@ -3,12 +3,16 @@ import './App.css';
 import { Button, Container, Nav, Navbar } from 'react-bootstrap';
 import data from './Routes/data.js'
 import Detail from './Routes/Detail.js';
-import { useState } from 'react';
+import { createContext, useState } from 'react';
 import { Routes, Route, Link, useNavigate, Outlet } from 'react-router-dom';
+import Cart from './Routes/Cart.js';
 import axios from 'axios';
+
+export let 재고Context1 = createContext()
 
 function App() {
   let [shoes, setShoes] = useState(data)
+  let [재고, 재고변경] = useState([10,11,12]);
   let navigate = useNavigate();
   
 
@@ -44,6 +48,11 @@ function App() {
           </div>
           </>
         }></Route>
+        <Route path='/detail/:id' element={
+          <재고Context1.Provider value={{재고,shoes}}>
+            <Detail shoes={shoes}/>
+            </재고Context1.Provider>
+        }></Route>
         <Route path='/detail/:id' element={<Detail shoes={shoes}/>}></Route>
         <Route path='*' element={<div>없는 페이지입니다<p></p>404</div>}></Route>
         <Route path='/about' element={<About/>}>
@@ -54,12 +63,13 @@ function App() {
         <Route path='one' element={<p>첫 주문시 신발 1+1 이벤트</p>}></Route>
         <Route path='two' element={<p>생일 기념 쿠폰 발급받기</p>}></Route>
         </Route>
+        <Route path='/cart' element={<Cart/>}/>
       </Routes>
     </div>
   );
 }
 
-function About (){
+function About (props){
   return (
     <div>
       <h4>회사정보임</h4>

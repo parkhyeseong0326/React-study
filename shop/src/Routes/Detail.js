@@ -1,8 +1,9 @@
 import { useParams } from "react-router-dom";
 import styled from "styled-components";
-import { useEffect, useState } from "react";
+import { useEffect, useState ,useContext} from "react";
 import { Nav } from "react-bootstrap";
 import'../App.css';
+import { 재고Context1 } from "../App.js";
 
 // let Box = styled.div`
 //     padding : 20px;
@@ -69,6 +70,7 @@ function Detail (props) {
     }
     },[])
 
+    let {재고} = useContext(재고Context1)
     return (
         <div className={"container start " + fade2}>
             <div className="row">
