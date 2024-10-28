@@ -3,6 +3,15 @@ import { useDispatch, useSelector } from 'react-redux';
 import { addAge, changeName ,addCount, minusCount} from '../store';
 
 function Cart() {
+    localStorage.setItem('데이터 이름','데이터');
+    localStorage.getItem('데이터이름');
+    localStorage.setItem('obj',JSON.stringify({name:'kim'}));
+    let aaa = localStorage.getItem('obj')
+    console.log(aaa)
+    let b = JSON.parse(aaa)
+    console.log(b)
+
+    
     let state = useSelector((state) => state)
     let dispatch = useDispatch()
     return (

@@ -3,7 +3,7 @@ import './App.css';
 import { Button, Container, Nav, Navbar } from 'react-bootstrap';
 import data from './Routes/data.js'
 import Detail from './Routes/Detail.js';
-import { createContext, useState } from 'react';
+import { createContext, useState , useEffect} from 'react';
 import { Routes, Route, Link, useNavigate, Outlet } from 'react-router-dom';
 import Cart from './Routes/Cart.js';
 import axios from 'axios';
@@ -15,6 +15,11 @@ function App() {
   let [재고, 재고변경] = useState([10,11,12]);
   let navigate = useNavigate();
   
+  // useEffect(() => {
+  //   localStorage.setItem('watched',JSON.stringify([]))
+  // },[])
+
+
 
   return (
     <div className="Main">
@@ -35,7 +40,9 @@ function App() {
         </Container>
       </Navbar>
 
+      <WatchedItems></WatchedItems>
       <Routes>
+        
         <Route path='/' element={
           <>
           <div className='main-bg'></div>
@@ -93,6 +100,26 @@ function Card(props){
         <img src={process.env.PUBLIC_URL + '/shoe'+props.i+'.png'} width="70%"></img>
         <h4>{props.shoes.title}</h4>
         <p>{props.shoes.price}</p>
+    </div>
+  )
+}
+
+function WatchedItems() {
+  let [watchedItems, setWatchedItems] = useState([]);
+
+  useEffect(() => {
+    let watched = JSON.parse(localStorage.getItem('watched'));
+    setWatchedItems(watched)
+  },[]);
+
+  return (
+    <div>
+      <h4>최근 본 항목</h4>
+      <ul>
+        {watchedItems.map((id,index) => (
+          <li ket={index}>상품 ID : {id}</li>
+        ))}
+      </ul>
     </div>
   )
 }
