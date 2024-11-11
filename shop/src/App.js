@@ -3,29 +3,35 @@ import './App.css';
 import { Button, Container, Nav, Navbar } from 'react-bootstrap';
 import data from './Routes/data.js'
 import Detail from './Routes/Detail.js';
-import { createContext, useState , useEffect} from 'react';
-import { Routes, Route, Link, useNavigate, Outlet } from 'react-router-dom';
 import Cart from './Routes/Cart.js';
+import { useState, useEffect } from 'react';
+import { Routes, Route, Link, useNavigate, Outlet } from 'react-router-dom';
 import axios from 'axios';
-
-export let 재고Context1 = createContext()
 
 function App() {
   let [shoes, setShoes] = useState(data)
   let [재고, 재고변경] = useState([10,11,12]);
   let navigate = useNavigate();
-  
+
+  // 누가 Detail 페이지에 접속하면
+  // 그 페이지에 보이는 상품 id를 가져와서
+  // localStorage에 watched 항목에 추가
+
   // useEffect(() => {
-  //   localStorage.setItem('watched',JSON.stringify([]))
-  // },[])
+  //   localStorage.setItem("watched", JSON.stringify([]))
+  // }, [])
 
-
-
-  return (
+  useEffect(() => {
+    if (!localStorage.getItem("watched")) {
+      localStorage.setItem("watched", JSON.stringify([]));
+    }
+  }, []);
+  
+  return (  
     <div className="Main">
       <Navbar bg='light' variant='light'>
         <Container>
-          <Navbar.Brand href='#home'>ShoesShop</Navbar.Brand>
+          <Navbar.Brand href='/'>ShoesShop</Navbar.Brand>
           <Nav className="me-auto">
             <Nav.Link onClick={() => {navigate('/')}}>HOME</Nav.Link>
             <Nav.Link onClick={() => {navigate('/detail/0')}}>Detail</Nav.Link>
@@ -40,9 +46,9 @@ function App() {
         </Container>
       </Navbar>
 
-      <WatchedItems></WatchedItems>
+      <WatchedItem></WatchedItem>
+      
       <Routes>
-        
         <Route path='/' element={
           <>
           <div className='main-bg'></div>
@@ -55,11 +61,6 @@ function App() {
           </div>
           </>
         }></Route>
-        <Route path='/detail/:id' element={
-          <재고Context1.Provider value={{재고,shoes}}>
-            <Detail shoes={shoes}/>
-            </재고Context1.Provider>
-        }></Route>
         <Route path='/detail/:id' element={<Detail shoes={shoes}/>}></Route>
         <Route path='*' element={<div>없는 페이지입니다<p></p>404</div>}></Route>
         <Route path='/about' element={<About/>}>
@@ -70,13 +71,13 @@ function App() {
         <Route path='one' element={<p>첫 주문시 신발 1+1 이벤트</p>}></Route>
         <Route path='two' element={<p>생일 기념 쿠폰 발급받기</p>}></Route>
         </Route>
-        <Route path='/cart' element={<Cart/>}/>
+        <Route path='/cart' element={<Cart/>} />
       </Routes>
     </div>
   );
 }
 
-function About (props){
+function About (){
   return (
     <div>
       <h4>회사정보임</h4>
@@ -104,23 +105,24 @@ function Card(props){
   )
 }
 
-function WatchedItems() {
-  let [watchedItems, setWatchedItems] = useState([]);
+function WatchedItem() {
+  // let [watchedItems, setwatchedItems] = useState([]);
 
-  useEffect(() => {
-    let watched = JSON.parse(localStorage.getItem('watched'));
-    setWatchedItems(watched)
-  },[]);
+  // useEffect(() => {
+  //   let watched = JSON.parse(localStorage.getItem('watched')) || [];   // || [] 추가 된
+  //   setwatchedItems(watched);
+  // }, []);
 
-  return (
-    <div>
-      <h4>최근 본 항목</h4>
-      <ul>
-        {watchedItems.map((id,index) => (
-          <li ket={index}>상품 ID : {id}</li>
-        ))}
-      </ul>
-    </div>
-  )
+  // return (
+  //   <div>
+  //     <h4>최근 본 항목</h4>
+  //     <ul>
+  //       {watchedItems.map((id, index) => (
+  //         <li key={index}>상품 ID : {id}</li>
+  //       ))}
+  //     </ul>
+  //   </div>
+  // );
 }
+
 export default App;
